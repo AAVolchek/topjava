@@ -40,6 +40,7 @@
     </build>
 
     <dependencies>
+
         <!-- Logging with SLF4J & LogBack -->
         <dependency>
             <groupId>org.slf4j</groupId>
@@ -61,6 +62,8 @@
             <artifactId>spring-context</artifactId>
             <version>${spring.version}</version>
         </dependency>
+
+
 
         <!--Web-->
         <dependency>

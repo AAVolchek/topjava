@@ -23,7 +23,8 @@ import static ru.javawebinar.topjava.UserTestData.USER_ID;
 
 @ContextConfiguration({
         "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-db.xml"
+        "classpath:spring/spring-db.xml",
+        "classpath:spring/spring-db-repository-jdbc.xml",
 })
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
@@ -56,8 +57,8 @@ public class MealServiceTest {
 
     @Test
     public void delete() {
-        service.delete(START_ID, USER_ID);
-        assertThrows(NotFoundException.class, () -> service.get(START_ID, USER_ID));
+        service.delete(START_MEAL_ID, USER_ID);
+        assertThrows(NotFoundException.class, () -> service.get(START_MEAL_ID, USER_ID));
     }
 
     @Test
@@ -67,12 +68,12 @@ public class MealServiceTest {
 
     @Test
     public void deleteElseFood() {
-        assertThrows(NotFoundException.class, () -> service.get(START_ID, GUEST_ID));
+        assertThrows(NotFoundException.class, () -> service.get(START_MEAL_ID, GUEST_ID));
     }
 
     @Test
     public void get() {
-        Meal meal = service.get(START_ID, USER_ID);
+        Meal meal = service.get(START_MEAL_ID, USER_ID);
         assertMatch(meal, meal1);
     }
 
@@ -83,14 +84,14 @@ public class MealServiceTest {
 
     @Test
     public void getElseFoodNotFound() {
-        assertThrows(NotFoundException.class, () -> service.get(START_ID, GUEST_ID));
+        assertThrows(NotFoundException.class, () -> service.get(START_MEAL_ID, GUEST_ID));
     }
 
     @Test
     public void update() {
         Meal updated = getUpdated();
         service.update(updated, USER_ID);
-        assertMatch(service.get(START_ID, USER_ID), getUpdated());
+        assertMatch(service.get(START_MEAL_ID, USER_ID), getUpdated());
     }
 
     @Test

@@ -1,6 +1,10 @@
 package ru.javawebinar.topjava.service;
 
+import org.junit.AfterClass;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.Stopwatch;
+import org.junit.runner.Description;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -13,6 +17,9 @@ import ru.javawebinar.topjava.util.exception.NotFoundException;
 
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.ArrayList;
+import java.util.concurrent.TimeUnit;
+import java.util.logging.Logger;
 
 import static org.junit.Assert.assertThrows;
 import static ru.javawebinar.topjava.MealTestData.*;
@@ -29,6 +36,30 @@ public class MealServiceTest {
 
     @Autowired
     private MealService service;
+
+    private static final Logger logger = Logger.getLogger(Meal.class.getName());
+    private static final ArrayList<String> list = new ArrayList<>();
+
+    private static void logInfo(Description description, long nanos) {
+        String testName = description.getMethodName();
+        String log = String.format("Test %s, spent %d microseconds",
+                testName, TimeUnit.NANOSECONDS.toMicros(nanos));
+        logger.info(log);
+        list.add(log);
+    }
+
+    @AfterClass
+    public static void afterClass() throws Exception {
+        list.stream().forEach(s -> logger.info(s));
+    }
+
+    @Rule
+    public Stopwatch stopwatch = new Stopwatch() {
+        @Override
+        protected void finished(long nanos, Description description) {
+            logInfo(description, nanos);
+        }
+    };
 
     @Test
     public void delete() {

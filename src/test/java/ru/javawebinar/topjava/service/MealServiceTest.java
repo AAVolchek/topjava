@@ -32,18 +32,11 @@ import static ru.javawebinar.topjava.UserTestData.USER_ID;
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class MealServiceTest {
 
-    @Autowired
-    private MealService service;
-
-    private static final Logger logger = LoggerFactory.getLogger(Meal.class);
+    private static final Logger logger = LoggerFactory.getLogger(MealServiceTest.class);
     private static final ArrayList<String> list = new ArrayList<>();
 
-    private static void logInfo(Description description, long nanos) {
-        String testName = description.getMethodName();
-        String log = String.format("%s - %d ms", testName, TimeUnit.MILLISECONDS.toMicros(nanos));
-        logger.info(log);
-        list.add(log);
-    }
+    @Autowired
+    private MealService service;
 
     @AfterClass
     public static void afterClass() throws Exception {
@@ -54,7 +47,10 @@ public class MealServiceTest {
     public Stopwatch stopwatch = new Stopwatch() {
         @Override
         protected void finished(long nanos, Description description) {
-            logInfo(description, nanos);
+            String testName = description.getMethodName();
+            String log = String.format("%n%-30s%d ms", testName, TimeUnit.NANOSECONDS.toMillis(nanos));
+            logger.info(log);
+            list.add(log);
         }
     };
 

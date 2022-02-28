@@ -29,10 +29,7 @@ public class JpaMealRepository implements MealRepository {
             return meal;
         } else {
             Meal updateMeal = get(meal.id(), userId);
-            if (updateMeal != null) {
-                return em.merge(meal);
-            }
-            return null;
+            return updateMeal != null ? em.merge(meal) : null;
         }
     }
 

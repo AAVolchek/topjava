@@ -40,7 +40,7 @@ public class MealServiceTest {
 
     private static void logInfo(Description description, long nanos) {
         String testName = description.getMethodName();
-        String log = String.format("%s - %d ms", testName, TimeUnit.MILLISECONDS.toMicros(nanos));
+        String log = String.format("%s - %d", testName, TimeUnit.MILLISECONDS.toMicros(nanos));
         logger.info(log);
         list.add(log);
     }

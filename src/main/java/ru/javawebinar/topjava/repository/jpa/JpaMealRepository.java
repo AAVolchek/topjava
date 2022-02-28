@@ -30,10 +30,7 @@ public class JpaMealRepository implements MealRepository {
         } else {
             Meal updateMeal = get(meal.id(), userId);
             if (updateMeal != null) {
-                updateMeal.setDescription(meal.getDescription());
-                updateMeal.setCalories(meal.getCalories());
-                updateMeal.setDateTime(meal.getDateTime());
-                return em.merge(updateMeal);
+                return em.merge(meal);
             }
             return null;
         }

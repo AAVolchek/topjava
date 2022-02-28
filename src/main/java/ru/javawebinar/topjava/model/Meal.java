@@ -26,7 +26,6 @@ public class Meal extends AbstractBaseEntity {
     public static final String FIND = "Meal.find";
     public static final String FILTER = "Meal.getBetweenHalfOpen";
 
-    //@Type(type="com.hibernate.samples.type.LocalDateTimeUserType")
     @Column(name = "date_time", nullable = false)
     @NotNull
     private LocalDateTime dateTime;

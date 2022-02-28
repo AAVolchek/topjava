@@ -6,6 +6,8 @@ import org.junit.Test;
 import org.junit.rules.Stopwatch;
 import org.junit.runner.Description;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ContextConfiguration;
@@ -19,17 +21,13 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.util.ArrayList;
 import java.util.concurrent.TimeUnit;
-import java.util.logging.Logger;
 
 import static org.junit.Assert.assertThrows;
 import static ru.javawebinar.topjava.MealTestData.*;
 import static ru.javawebinar.topjava.UserTestData.ADMIN_ID;
 import static ru.javawebinar.topjava.UserTestData.USER_ID;
 
-@ContextConfiguration({
-        "classpath:spring/spring-app.xml",
-        "classpath:spring/spring-db.xml"
-})
+@ContextConfiguration({"classpath:spring/spring-app.xml", "classpath:spring/spring-db.xml"})
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class MealServiceTest {
@@ -37,20 +35,19 @@ public class MealServiceTest {
     @Autowired
     private MealService service;
 
-    private static final Logger logger = Logger.getLogger(Meal.class.getName());
+    private static final Logger logger = LoggerFactory.getLogger(Meal.class);
     private static final ArrayList<String> list = new ArrayList<>();
 
     private static void logInfo(Description description, long nanos) {
         String testName = description.getMethodName();
-        String log = String.format("Test %s, spent %d microseconds",
-                testName, TimeUnit.NANOSECONDS.toMicros(nanos));
+        String log = String.format("%s - %d", testName, TimeUnit.MILLISECONDS.toMicros(nanos));
         logger.info(log);
         list.add(log);
     }
 
     @AfterClass
     public static void afterClass() throws Exception {
-        list.stream().forEach(s -> logger.info(s));
+        logger.info(list.toString());
     }
 
     @Rule
@@ -89,8 +86,7 @@ public class MealServiceTest {
 
     @Test
     public void duplicateDateTimeCreate() {
-        assertThrows(DataAccessException.class, () ->
-                service.create(new Meal(null, meal1.getDateTime(), "duplicate", 100), USER_ID));
+        assertThrows(DataAccessException.class, () -> service.create(new Meal(null, meal1.getDateTime(), "duplicate", 100), USER_ID));
     }
 
     @Test
@@ -129,10 +125,7 @@ public class MealServiceTest {
 
     @Test
     public void getBetweenInclusive() {
-        MEAL_MATCHER.assertMatch(service.getBetweenInclusive(
-                        LocalDate.of(2020, Month.JANUARY, 30),
-                        LocalDate.of(2020, Month.JANUARY, 30), USER_ID),
-                meal3, meal2, meal1);
+        MEAL_MATCHER.assertMatch(service.getBetweenInclusive(LocalDate.of(2020, Month.JANUARY, 30), LocalDate.of(2020, Month.JANUARY, 30), USER_ID), meal3, meal2, meal1);
     }
 
     @Test

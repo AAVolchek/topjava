@@ -38,11 +38,6 @@ public class MealServiceTest {
     @Autowired
     private MealService service;
 
-    @AfterClass
-    public static void afterClass() throws Exception {
-        logger.info(list.toString());
-    }
-
     @Rule
     public Stopwatch stopwatch = new Stopwatch() {
         @Override
@@ -53,6 +48,11 @@ public class MealServiceTest {
             list.add(log);
         }
     };
+
+    @AfterClass
+    public static void afterClass() throws Exception {
+        logger.info(list.toString());
+    }
 
     @Test
     public void delete() {
@@ -82,7 +82,8 @@ public class MealServiceTest {
 
     @Test
     public void duplicateDateTimeCreate() {
-        assertThrows(DataAccessException.class, () -> service.create(new Meal(null, meal1.getDateTime(), "duplicate", 100), USER_ID));
+        assertThrows(DataAccessException.class, () ->
+                service.create(new Meal(null, meal1.getDateTime(), "duplicate", 100), USER_ID));
     }
 
     @Test
@@ -121,7 +122,10 @@ public class MealServiceTest {
 
     @Test
     public void getBetweenInclusive() {
-        MEAL_MATCHER.assertMatch(service.getBetweenInclusive(LocalDate.of(2020, Month.JANUARY, 30), LocalDate.of(2020, Month.JANUARY, 30), USER_ID), meal3, meal2, meal1);
+        MEAL_MATCHER.assertMatch(service.getBetweenInclusive(
+                        LocalDate.of(2020, Month.JANUARY, 30),
+                        LocalDate.of(2020, Month.JANUARY, 30), USER_ID),
+                meal3, meal2, meal1);
     }
 
     @Test

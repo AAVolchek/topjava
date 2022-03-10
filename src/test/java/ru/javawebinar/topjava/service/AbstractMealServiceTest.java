@@ -30,7 +30,7 @@ import static ru.javawebinar.topjava.UserTestData.USER_ID;
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 @ActiveProfiles(resolver = ActiveDbProfileResolver.class)
-public abstract class AbstractMealServiceTest extends ServiceTest{
+public abstract class AbstractMealServiceTest extends AbstractServiceTest {
 
     @Autowired
     protected MealService service;

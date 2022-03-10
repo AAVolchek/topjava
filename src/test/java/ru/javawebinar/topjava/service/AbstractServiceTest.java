@@ -5,12 +5,15 @@ import org.junit.Rule;
 import org.junit.rules.Stopwatch;
 import org.junit.runner.Description;
 import org.slf4j.Logger;
+import org.springframework.test.context.ActiveProfiles;
+import ru.javawebinar.topjava.ActiveDbProfileResolver;
 
 import java.util.concurrent.TimeUnit;
 
 import static org.slf4j.LoggerFactory.getLogger;
 
-public class ServiceTest {
+@ActiveProfiles(resolver = ActiveDbProfileResolver.class)
+public abstract class AbstractServiceTest {
 
     private static final Logger log = getLogger("result");
 

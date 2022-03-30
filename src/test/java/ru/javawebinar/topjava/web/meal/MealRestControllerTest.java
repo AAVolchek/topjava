@@ -24,7 +24,6 @@ import static ru.javawebinar.topjava.UserTestData.user;
 import static ru.javawebinar.topjava.util.MealsUtil.createTo;
 import static ru.javawebinar.topjava.util.MealsUtil.getTos;
 
-
 public class MealRestControllerTest extends AbstractControllerTest {
 
     private static final String REST_URL = MealRestController.REST_URL + '/';
@@ -86,8 +85,7 @@ public class MealRestControllerTest extends AbstractControllerTest {
 
     @Test
     void getBetween() throws Exception {
-        String param = "filter?startDate=2020-01-30T09:00:00&endDate=2020-01-30T11:00:00";
-        perform(MockMvcRequestBuilders.get(REST_URL + param))
+        perform(MockMvcRequestBuilders.get(REST_URL+"filter?startDate=2020-01-30T09:00:00&endDate=2020-01-30T11:00:00"))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(MEAL_TO_MATCHER.contentJson(List.of(createTo(meal1, false))));

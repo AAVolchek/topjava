@@ -55,13 +55,15 @@ public class MealTo {
         if (this == obj) {
             return true;
         }
-        if (obj == null || !(obj instanceof MealTo)) {
+        if (obj == null || !(getClass().equals(obj.getClass()))) {
             return false;
         }
         MealTo mealTo = (MealTo) obj;
-        return this.calories == mealTo.calories && this.dateTime.equals(mealTo.dateTime)
-                && this.description.equals(mealTo.description) && this.id.equals(mealTo.id)
-                && this.excess == mealTo.excess;
+        return this.calories == mealTo.calories
+                && this.excess == mealTo.excess
+                && Objects.equals(this.dateTime, mealTo.dateTime)
+                && Objects.equals(this.description, mealTo.description)
+                && Objects.equals(this.id, mealTo.id);
     }
 
     @Override

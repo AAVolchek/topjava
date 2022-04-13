@@ -19,19 +19,19 @@
                     <div class="row">
                         <div class="col-3">
                             <label for="startDate"><spring:message code="meal.startDate"/></label>
-                            <input class="form-control" name ="startDate" id="startDate">
+                            <input class="form-control" name="startDate" id="startDate">
                         </div>
                         <div class="col-3">
                             <label for="endDate"><spring:message code="meal.endDate"/></label>
-                            <input class="form-control" name ="endDate" id="endDate">
+                            <input class="form-control" name="endDate" id="endDate">
                         </div>
                         <div class="col-2">
                             <label for="startTime"><spring:message code="meal.startTime"/></label>
-                            <input class="form-control" name ="startTime" id="startTime">
+                            <input class="form-control" name="startTime" id="startTime">
                         </div>
                         <div class="col-2">
                             <label for="endTime"><spring:message code="meal.endTime"/></label>
-                            <input class="form-control" name ="endTime" id="endTime">
+                            <input class="form-control" name="endTime" id="endTime">
                         </div>
                     </div>
                 </form>
@@ -79,7 +79,7 @@
 
                     <div class="form-group">
                         <label for="dateTime" class="col-form-label"><spring:message code="meal.dateTime"/></label>
-                        <input class="form-control" name = "dateTime" id="dateTime"
+                        <input class="form-control" name="dateTime" id="dateTime"
                                placeholder="<spring:message code="meal.dateTime"/>">
                     </div>
 
@@ -112,6 +112,6 @@
 <jsp:include page="fragments/footer.jsp"/>
 </body>
 <jsp:include page="fragments/i18n.jsp">
-    <jsp:param name="userOrMealPage" value="meal"/>
+    <jsp:param name="page" value="meal"/>
 </jsp:include>
 </html>

@@ -88,7 +88,7 @@ $(function () {
             "info": true,
             "columns": [
                 {
-                    "data": "dateTime",
+                    "data": "dateTime"
                 },
                 {
                     "data": "description"

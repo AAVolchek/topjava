@@ -67,11 +67,12 @@ $.ajaxSetup({
     converters: {
         "text json": function( result ) {
             var json = JSON.parse(result);
+            if(typeof json == 'object'){
             $(json).each(function (){
                if(this.hasOwnProperty("dateTime")){
                    this.dateTime = this.dateTime.replace('T', ' ').substr(0, 16);
                }
-            });
+            });}
             return json;
         }
     }
